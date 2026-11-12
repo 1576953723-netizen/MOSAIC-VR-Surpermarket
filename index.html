@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>受试者基线信息登记表</title>
+<style>
+  :root {
+    --primary: #1F4E79;
+    --primary-dark: #17375E;
+    --border: #D9D9D9;
+    --bg: #F5F7FA;
+    --card: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #666;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  header {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+  }
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  label.label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  label.label .req { color: #C0392B; margin-left: 2px; }
+  label.label .opt { font-weight: 400; font-size: 12px; color: var(--muted); margin-left: 6px; }
+  input[type="text"], input[type="number"], select {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--text);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input:focus, select:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+  .unit { font-size: 12px; color: var(--muted); margin-left: 4px; }
+  .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .radio-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .radio-group input { accent-color: var(--primary); width: 18px; height: 18px; }
+  .radio-group label:has(input:checked) { border-color: var(--primary); background: #EAF1F8; }
+  .btns { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:active { transform: scale(0.99); }
+  #save { background: var(--primary); color: #fff; }
+  #export { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
+  #status {
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 6px;
+    min-height: 20px;
+  }
+  #status.ok { color: #1E7D32; }
+  @media (min-width: 640px) {
+    body { padding: 32px; }
+    header { padding: 26px 28px; }
+    header h1 { font-size: 24px; }
+    .card { padding: 26px 28px; }
+    .btns { flex-direction: row; }
+    .btns button { flex: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>受试者基线信息登记表</h1>
+      <p>除「双眼矫正视力」「屈光度」外，其余均为必填（<span style="color:#ffd7d7">*</span>）。数据仅保存在本设备浏览器中。</p>
+    </header>
+
+    <form class="card" id="form" autocomplete="off">
+      <div class="field">
+        <label class="label" for="id">受试者编号 <span class="req">*</span></label>
+        <input type="text" id="id" placeholder="例如 S001" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="name">姓名 <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="请输入姓名" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="age">年龄 <span class="unit">（岁）</span> <span class="req">*</span></label>
+        <input type="number" id="age" min="1" max="120" inputmode="numeric" placeholder="18" required>
+      </div>
+
+      <div class="field">
+        <label class="label">性别 <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="男" required> 男</label>
+          <label><input type="radio" name="gender" value="女"> 女</label>
+          <label><input type="radio" name="gender" value="其他"> 其他</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="height">身高 <span class="unit">（cm）</span> <span class="req">*</span></label>
+        <input type="number" id="height" min="50" max="250" step="0.1" inputmode="decimal" placeholder="170" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="weight">体重 <span class="unit">（kg）</span> <span class="req">*</span></label>
+        <input type="number" id="weight" min="10" max="300" step="0.1" inputmode="decimal" placeholder="60" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="occupation">职业 <span class="req">*</span></label>
+        <input type="text" id="occupation" placeholder="例如 学生 / 教师 / 程序员" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="education">教育水平 <span class="req">*</span></label>
+        <select id="education" required>
+          <option value="">请选择</option>
+          <option>小学及以下</option>
+          <option>初中</option>
+          <option>高中/中专</option>
+          <option>大专</option>
+          <option>本科</option>
+          <option>硕士</option>
+          <option>博士</option>
+          <option>其他</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label">惯用手 <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="handedness" value="右利手" required> 右利手</label>
+          <label><input type="radio" name="handedness" value="左利手"> 左利手</label>
+          <label><input type="radio" name="handedness" value="双利手"> 双利手</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="vr">VR 使用经验 <span class="req">*</span></label>
+        <select id="vr" required>
+          <option value="">请选择</option>
+          <option>从未使用</option>
+          <option>偶尔使用（每月少于 1 次）</option>
+          <option>经常使用（每月 1 次以上）</option>
+          <option>频繁使用（每周 1 次以上）</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="label" for="va">双眼矫正视力 <span class="opt">（选填）</span></label>
+        <input type="text" id="va" placeholder="例如 1.0 或 20/20">
+      </div>
+
+      <div class="field">
+        <label class="label" for="diopter">屈光度 <span class="opt">（选填）</span></label>
+        <input type="text" id="diopter" placeholder="例如 右 -2.50 D / 左 -2.00 D">
+      </div>
+
+      <div class="btns">
+        <button type="submit" id="save">保存本条记录</button>
+        <button type="button" id="export">导出 CSV</button>
+      </div>
+      <p id="status"></p>
+    </form>
+  </div>
+
+<script>
+  const STORAGE_KEY = "baseline_records";
+  const FIELDS = ["id", "name", "age", "gender", "height", "weight", "occupation", "education", "handedness", "vr", "va", "diopter"];
+  const HEADERS = ["受试者编号", "姓名", "年龄(岁)", "性别", "身高(cm)", "体重(kg)", "职业", "教育水平", "惯用手", "VR使用经验", "双眼矫正视力", "屈光度"];
+
+  const statusEl = document.getElementById("status");
+
+  function getRecords() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function setRecords(records) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  }
+  function setStatus(msg, ok) {
+    statusEl.textContent = msg;
+    statusEl.className = ok ? "ok" : "";
+  }
+
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const handedness = document.querySelector('input[name="handedness"]:checked');
+    if (!gender) { setStatus("请选择性别"); return; }
+    if (!handedness) { setStatus("请选择惯用手"); return; }
+
+    const record = {
+      id: document.getElementById("id").value.trim(),
+      name: document.getElementById("name").value.trim(),
+      age: document.getElementById("age").value,
+      gender: gender.value,
+      height: document.getElementById("height").value,
+      weight: document.getElementById("weight").value,
+      occupation: document.getElementById("occupation").value.trim(),
+      education: document.getElementById("education").value,
+      handedness: handedness.value,
+      vr: document.getElementById("vr").value,
+      va: document.getElementById("va").value.trim(),
+      diopter: document.getElementById("diopter").value.trim(),
+    };
+
+    const records = getRecords();
+    records.push(record);
+    setRecords(records);
+    this.reset();
+    setStatus("已保存。当前共 " + records.length + " 条记录。", true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  document.getElementById("export").addEventListener("click", function () {
+    const records = getRecords();
+    if (records.length === 0) { setStatus("暂无记录可导出"); return; }
+    const escapeCsv = (v) => {
+      const s = (v == null ? "" : String(v));
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    };
+    const lines = [HEADERS.join(",")];
+    records.forEach((r) => {
+      lines.push(FIELDS.map((f) => escapeCsv(r[f])).join(","));
+    });
+    const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    const d = new Date();
+    const stamp = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+    a.href = URL.createObjectURL(blob);
+    a.download = "受试者基线信息_" + stamp + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setStatus("已导出 " + records.length + " 条记录。", true);
+  });
+</script>
+</body>
+</html>
